@@ -1,0 +1,31 @@
+import re
+
+# Function to assess password strength
+def check_password_strength(password):
+    # Define password strength criteria
+    length_criteria = len(password) >= 8
+    lowercase_criteria = bool(re.search(r'[a-z]', password))
+    uppercase_criteria = bool(re.search(r'[A-Z]', password))
+    number_criteria = bool(re.search(r'[0-9]', password))
+    special_char_criteria = bool(re.search(r'[\W_]', password))
+    
+    # Evaluate the strength of the password based on how many criteria are met
+    strength_score = sum([length_criteria, lowercase_criteria, uppercase_criteria, number_criteria, special_char_criteria])
+    
+    # Provide feedback based on the score
+    feedback = ""
+    if strength_score == 5:
+        feedback = "Strong password."
+    elif strength_score == 4:
+        feedback = "Moderate password. Could be improved by adding more complexity."
+    elif strength_score == 3:
+        feedback = "Weak password. Consider adding special characters, numbers, and mixed case letters."
+    else:
+        feedback = "Very weak password. Increase length, add numbers, special characters, and a mix of upper and lowercase letters."
+    
+    # Return score and feedback
+    return strength_score, feedback
+
+# Test the function with an example password
+password = "Pa$$w0rd"
+check_password_strength(password)
